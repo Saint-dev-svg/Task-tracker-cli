@@ -1,1 +1,7 @@
-[]
+[
+    {
+        "id": 1,
+        "description": "Buy Groceries",
+        "status": "to-do"
+    }
+]

@@ -1,24 +1,20 @@
 import sys
+import json
+import os
 
-if len(sys.argv) < 2:
-    print("Please give a command: ")
-else:
-    command = sys.argv[1]
-    
-    if command == 'add':
-        if len(sys.argv) < 3:
-            print("Please provide a task description:")
-        else:
-            description = sys.argv[2]
-            print("Adding task:", description)
-            
-    elif command == 'list':
-        print("Listing tasks..")
-        
-    elif command == 'delete':
-        print("Deleting task..")
-        
-    else:
-        print("Unknown command.")
-        
+TASKS_FILE = "tasks.json"
 
+def load_tasks():
+    if not os.path.exists(TASKS_FILE):
+        return []
+    with open(TASKS_FILE, "r") as file:
+        try:
+            return json.load(file)
+        except json.JSONDecodeError:
+            return []
+
+        
+def save_tasks(tasks):
+    with open(TASKS_FILE, "w") as file:
+        json.dump(tasks, file, indent = 4)
+        
