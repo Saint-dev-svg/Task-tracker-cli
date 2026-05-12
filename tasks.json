@@ -24,5 +24,12 @@
         "status": "to-do",
         "created At": "2026-05-12T15:22:51.445296",
         "Updated At": "2026-05-12T15:22:51.445296"
+    },
+    {
+        "id": 3,
+        "description": "Go pick up an item",
+        "status": "to-do",
+        "created At": "2026-05-12T15:39:15.238244",
+        "Updated At": "2026-05-12T15:39:15.238244"
     }
 ]
