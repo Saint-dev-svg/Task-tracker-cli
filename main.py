@@ -52,3 +52,18 @@ else:
             save_tasks(tasks)
             
             print("Task added successfully. ID:", task_id)
+    
+    elif command == 'list':
+        tasks = load_tasks()
+        
+        if not tasks:
+            print("No tasks found.")
+        else:
+            for task in tasks:
+                print("______________")
+                print(f"ID: {task['id']}")
+                print(f"Description: {task['description']}")
+                print(f"Status: {task['status']}")
+                print(f"Created at: {task['created At']}")
+                print(f"Updated At: {task['Updated At']}")
+                
