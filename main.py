@@ -56,6 +56,16 @@ else:
     elif command == 'list':
         tasks = load_tasks()
         
+        if len(sys.argv) == 3:
+            status_filter = sys.argv[2]
+            filtered_tasks = []
+            
+            for task in tasks:
+                if task["status"] == status_filter:
+                    filtered_tasks.append(task)
+            
+            tasks = filtered_tasks
+        
         if not tasks:
             print("No tasks found.")
         else:
@@ -67,3 +77,30 @@ else:
                 print(f"Created at: {task['created At']}")
                 print(f"Updated At: {task['Updated At']}")
                 
+    elif command == 'update':
+        if len(sys.argv) < 4:
+            print("Please provide task ID and new description:")
+        else:
+            try:
+                task_id = int(sys.argv[2])
+            except ValueError:
+                print("Task ID must be a number.")
+            else:
+                new_description = sys.argv[3]
+                tasks = load_tasks()
+                task_found = False
+                
+                for task in tasks:
+                    if task["id"] == task_id:
+                        task["description"] == new_description
+                        task["Updated At"] == datetime.now().isoformat()
+                        task_found = True
+                        break
+                if task_found:
+                    save_tasks(tasks)
+                    print(f"Task {task_id} updated successfully.")
+                else:
+                    print("Task not found.")
+        
+    else:
+        print("Unknown command.")
