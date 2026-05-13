@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 
 TASKS_FILE = "tasks.json"
+print(os.path.abspath(TASKS_FILE))
 
 def load_tasks():
     if not os.path.exists(TASKS_FILE):
@@ -79,28 +80,64 @@ else:
                 
     elif command == 'update':
         if len(sys.argv) < 4:
-            print("Please provide task ID and new description:")
+            print("Please provide task ID and new description.")
+
         else:
             try:
                 task_id = int(sys.argv[2])
+
             except ValueError:
                 print("Task ID must be a number.")
+
             else:
                 new_description = sys.argv[3]
                 tasks = load_tasks()
                 task_found = False
-                
+
                 for task in tasks:
                     if task["id"] == task_id:
-                        task["description"] == new_description
-                        task["Updated At"] == datetime.now().isoformat()
+                        task["description"] = new_description
+                        task["Updated At"] = datetime.now().isoformat()
                         task_found = True
                         break
+
                 if task_found:
                     save_tasks(tasks)
                     print(f"Task {task_id} updated successfully.")
+
                 else:
                     print("Task not found.")
+    
+    elif command == 'delete':
+        if len(sys.argv) < 3:
+            print("Please provide a task ID:")
+        
+        else:
+            try:
+                task_id = int(sys.argv[2])
+            
+            except ValueError:
+                print("Task ID must be a number.")
+                
+            else:
+                tasks = load_tasks()    
+                updated_tasks = []
+                task_found = False
+                
+                for task in tasks:
+                    if task["id"] == task_id:
+                        task_found = True
+                    
+                    else:
+                        updated_tasks.append(task)
+                
+                if task_found:
+                    save_tasks(updated_tasks)
+                    print(f"Task {task_id} deleted successfully.")
+                
+                else:
+                    print("Task not found.")
+    
         
     else:
         print("Unknown command.")
