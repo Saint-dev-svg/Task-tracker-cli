@@ -4,7 +4,6 @@ import os
 from datetime import datetime
 
 TASKS_FILE = "tasks.json"
-print(os.path.abspath(TASKS_FILE))
 
 def load_tasks():
     if not os.path.exists(TASKS_FILE):
@@ -39,7 +38,7 @@ else:
             tasks = load_tasks()
             task_id = generate_task_id(tasks)
             
-            current_time = datetime.now().isoformat()
+            current_time = datetime.now().replace(microsecond=0).isoformat()
             
             new_task = {
                 "id" : task_id,
@@ -71,13 +70,14 @@ else:
             print("No tasks found.")
         else:
             for task in tasks:
-                print("______________")
+                print("____________________________________")
                 print(f"ID: {task['id']}")
                 print(f"Description: {task['description']}")
                 print(f"Status: {task['status']}")
                 print(f"Created at: {task['created At']}")
                 print(f"Updated At: {task['Updated At']}")
-                
+                print("____________________________________")
+               
     elif command == 'update':
         if len(sys.argv) < 4:
             print("Please provide task ID and new description.")
@@ -97,7 +97,7 @@ else:
                 for task in tasks:
                     if task["id"] == task_id:
                         task["description"] = new_description
-                        task["Updated At"] = datetime.now().isoformat()
+                        task["Updated At"] = datetime.now().replace(microsecond=0).isoformat()
                         task_found = True
                         break
 
@@ -138,6 +138,63 @@ else:
                 else:
                     print("Task not found.")
     
+    elif command == 'mark-in-progress':
+        if len(sys.argv) < 3:
+            print("Please provide a task ID:")
         
+        else:
+            try:
+                task_id = int(sys.argv[2])
+                
+            except ValueError:
+                print("Task ID must be a number.")
+                
+            else:
+                tasks = load_tasks()
+                task_found = False
+                
+                for task in tasks:
+                    if task['id'] == task_id:
+                        task['status'] = "in-progress"
+                        task['Updated At'] = datetime.now().replace(microsecond=0).isoformat()
+                        task_found = True
+                        break
+                    
+                if task_found:
+                    save_tasks(tasks)
+                    print(f"Task {task_id} marked as in progress.")
+                        
+                else:
+                    print("task not found.")
+    
+    elif command == 'mark-done':
+        if len(sys.argv) < 3:
+            print("Please provide a task ID:")
+        
+        else:
+            try:
+                task_id = int(sys.argv[2])
+                
+            except ValueError:
+                print("Task ID must be a number.")
+                
+            else:
+                tasks = load_tasks()
+                task_found = False
+                
+                for task in tasks:
+                    if task['id'] == task_id:
+                        task['status'] = "done"
+                        task['Updated At'] = datetime.now().replace(microsecond=0).isoformat()
+                        task_found = True
+                        break
+                    
+                if task_found:
+                    save_tasks(tasks)
+                    print(f"Task {task_id} marked as done.")
+                        
+                else:
+                    print("task not found.")
+    
     else:
         print("Unknown command.")

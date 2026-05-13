@@ -2,36 +2,36 @@
     {
         "id": 2,
         "description": "Finish studying python",
-        "status": "to-do",
-        "created At": "2026-05-12T15:22:51.445296",
-        "Updated At": "2026-05-12T15:22:51.445296"
+        "status": "in-progress",
+        "created At": "2026-05-12T15:22:51",
+        "Updated At": "2026-05-13T11:12:03"
     },
     {
         "id": 3,
         "description": "Go pick up an item",
-        "status": "to-do",
-        "created At": "2026-05-12T15:39:15.238244",
-        "Updated At": "2026-05-12T15:39:15.238244"
+        "status": "done",
+        "created At": "2026-05-12T15:39:15",
+        "Updated At": "2026-05-13T11:24:25"
     },
     {
         "id": 4,
         "description": "Finish learning APIs",
         "status": "to-do",
-        "created At": "2026-05-12T19:24:49.488764",
-        "Updated At": "2026-05-13T10:26:58.704452"
+        "created At": "2026-05-12T19:24:49",
+        "Updated At": "2026-05-13T10:26:58"
     },
     {
         "id": 5,
         "description": "Workout",
         "status": "to-do",
-        "created At": "2026-05-12T19:26:46.368007",
-        "Updated At": "2026-05-12T19:26:46.368007"
+        "created At": "2026-05-12T19:26:46",
+        "Updated At": "2026-05-12T19:26:46"
     },
     {
         "id": 6,
         "description": "Finish project",
         "status": "to-do",
-        "created At": "2026-05-12T19:27:05.050517",
-        "Updated At": "2026-05-12T19:27:05.050517"
+        "created At": "2026-05-12T19:27:05",
+        "Updated At": "2026-05-12T19:27:05"
     }
 ]
