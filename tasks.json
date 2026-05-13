@@ -16,16 +16,16 @@
     {
         "id": 4,
         "description": "Finish learning APIs",
-        "status": "to-do",
+        "status": "done",
         "created At": "2026-05-12T19:24:49",
-        "Updated At": "2026-05-13T10:26:58"
+        "Updated At": "2026-05-13T11:47:45"
     },
     {
         "id": 5,
-        "description": "Workout",
-        "status": "to-do",
+        "description": "Workout and shower",
+        "status": "in-progress",
         "created At": "2026-05-12T19:26:46",
-        "Updated At": "2026-05-12T19:26:46"
+        "Updated At": "2026-05-13T11:47:23"
     },
     {
         "id": 6,

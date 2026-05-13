@@ -24,6 +24,16 @@ def generate_task_id(tasks):
         return 1
     return tasks[-1]["id"] +1
 
+def find_task_by_id(tasks, task_id):
+    for task in tasks:
+        if task['id'] == task_id:
+            return task
+        
+    return None
+
+def get_current_time():
+    return datetime.now().replace(microsecond=0).isoformat()
+
 if len(sys.argv) < 2:
     print("Please enter a command:")
 else:
@@ -38,7 +48,7 @@ else:
             tasks = load_tasks()
             task_id = generate_task_id(tasks)
             
-            current_time = datetime.now().replace(microsecond=0).isoformat()
+            current_time = get_current_time()
             
             new_task = {
                 "id" : task_id,
@@ -92,16 +102,11 @@ else:
             else:
                 new_description = sys.argv[3]
                 tasks = load_tasks()
-                task_found = False
-
-                for task in tasks:
-                    if task["id"] == task_id:
-                        task["description"] = new_description
-                        task["Updated At"] = datetime.now().replace(microsecond=0).isoformat()
-                        task_found = True
-                        break
-
-                if task_found:
+                task = find_task_by_id(tasks, task_id)
+                
+                if task:
+                    task['description'] = new_description
+                    task['Updated At'] = get_current_time()
                     save_tasks(tasks)
                     print(f"Task {task_id} updated successfully.")
 
@@ -151,16 +156,11 @@ else:
                 
             else:
                 tasks = load_tasks()
-                task_found = False
+                task = find_task_by_id(tasks, task_id)
                 
-                for task in tasks:
-                    if task['id'] == task_id:
-                        task['status'] = "in-progress"
-                        task['Updated At'] = datetime.now().replace(microsecond=0).isoformat()
-                        task_found = True
-                        break
-                    
-                if task_found:
+                if task:
+                    task['status'] = "in-progress"
+                    task['Updated At'] = get_current_time()
                     save_tasks(tasks)
                     print(f"Task {task_id} marked as in progress.")
                         
@@ -180,16 +180,11 @@ else:
                 
             else:
                 tasks = load_tasks()
-                task_found = False
+                task = find_task_by_id(tasks, task_id)
                 
-                for task in tasks:
-                    if task['id'] == task_id:
-                        task['status'] = "done"
-                        task['Updated At'] = datetime.now().replace(microsecond=0).isoformat()
-                        task_found = True
-                        break
-                    
-                if task_found:
+                if task:
+                    task['status'] = "done"
+                    task['Updated At'] = get_current_time()
                     save_tasks(tasks)
                     print(f"Task {task_id} marked as done.")
                         
