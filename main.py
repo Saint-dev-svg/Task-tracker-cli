@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 
 TASKS_FILE = "tasks.json"
+VALID_STATUSES = ['todo', 'in-progress', 'done']
 
 def load_tasks():
     if not os.path.exists(TASKS_FILE):
@@ -12,6 +13,7 @@ def load_tasks():
         try:
             return json.load(file)
         except json.JSONDecodeError:
+            print("Error: tasks.json is corrupted.")
             return []
 
         
@@ -34,20 +36,28 @@ def find_task_by_id(tasks, task_id):
 def get_current_time():
     return datetime.now().replace(microsecond=0).isoformat()
 
+def print_available_commands():
+    print("Available commands:")
+    print("add")
+    print("list")
+    print("update")
+    print("delete")
+    print("mark-in-progress")
+    print("mark-done")
+
 if len(sys.argv) < 2:
     print("Please enter a command:")
 else:
     command = sys.argv[1]
     
     if command == 'add':
-        if len(sys.argv) < 3:
-            print("Please give a task description:")
+        if len(sys.argv) < 3 or not sys.argv[2].strip():
+            print("Task description cannot be empty!")
         
         else:
             description = sys.argv[2]
             tasks = load_tasks()
             task_id = generate_task_id(tasks)
-            
             current_time = get_current_time()
             
             new_task = {
@@ -61,13 +71,17 @@ else:
             tasks.append(new_task)
             save_tasks(tasks)
             
-            print("Task added successfully. ID:", task_id)
+            print(f"Task added successfully. (ID: {task_id}")
     
     elif command == 'list':
         tasks = load_tasks()
         
         if len(sys.argv) == 3:
             status_filter = sys.argv[2]
+            if status_filter not in VALID_STATUSES:
+                print("Invalid status.")
+                sys.exit()
+
             filtered_tasks = []
             
             for task in tasks:
@@ -75,9 +89,10 @@ else:
                     filtered_tasks.append(task)
             
             tasks = filtered_tasks
-        
+            
         if not tasks:
             print("No tasks found.")
+            
         else:
             for task in tasks:
                 print("____________________________________")
@@ -101,17 +116,21 @@ else:
 
             else:
                 new_description = sys.argv[3]
-                tasks = load_tasks()
-                task = find_task_by_id(tasks, task_id)
+                if not new_description.strip():
+                    print("task description cannot be empty.")
                 
-                if task:
-                    task['description'] = new_description
-                    task['Updated At'] = get_current_time()
-                    save_tasks(tasks)
-                    print(f"Task {task_id} updated successfully.")
-
                 else:
-                    print("Task not found.")
+                    tasks = load_tasks()
+                    task = find_task_by_id(tasks, task_id)
+                    
+                    if task:
+                        task['description'] = new_description
+                        task['Updated At'] = get_current_time()
+                        save_tasks(tasks)
+                        print(f"Task {task_id} updated successfully.")
+
+                    else:
+                        print("Task not found.")
     
     elif command == 'delete':
         if len(sys.argv) < 3:
@@ -193,3 +212,4 @@ else:
     
     else:
         print("Unknown command.")
+        print_available_commands()
