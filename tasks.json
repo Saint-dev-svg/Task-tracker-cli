@@ -1,37 +1,9 @@
 [
     {
-        "id": 2,
-        "description": "Finish studying python",
+        "id": 1,
+        "description": "Test task",
         "status": "in-progress",
-        "created At": "2026-05-12T15:22:51",
-        "Updated At": "2026-05-13T11:12:03"
-    },
-    {
-        "id": 3,
-        "description": "Go pick up an item",
-        "status": "done",
-        "created At": "2026-05-12T15:39:15",
-        "Updated At": "2026-05-13T11:24:25"
-    },
-    {
-        "id": 4,
-        "description": "Finish learning APIs",
-        "status": "done",
-        "created At": "2026-05-12T19:24:49",
-        "Updated At": "2026-05-13T11:47:45"
-    },
-    {
-        "id": 5,
-        "description": "Workout and shower",
-        "status": "in-progress",
-        "created At": "2026-05-12T19:26:46",
-        "Updated At": "2026-05-13T11:47:23"
-    },
-    {
-        "id": 6,
-        "description": "Finish project",
-        "status": "to-do",
-        "created At": "2026-05-12T19:27:05",
-        "Updated At": "2026-05-12T19:27:05"
+        "created At": "2026-05-14T15:30:06",
+        "Updated At": "2026-05-14T15:32:31"
     }
 ]

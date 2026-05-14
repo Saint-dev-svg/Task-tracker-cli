@@ -44,6 +44,17 @@ def print_available_commands():
     print("delete")
     print("mark-in-progress")
     print("mark-done")
+    
+def get_task_id():
+    if len(sys.argv) < 3:
+        print("Please provide a task ID:")
+        return None
+    
+    try:
+        return int(sys.argv[2])
+    except ValueError:
+        print("Task ID must be a number!")
+        return None
 
 if len(sys.argv) < 2:
     print("Please enter a command:")
@@ -71,7 +82,7 @@ else:
             tasks.append(new_task)
             save_tasks(tasks)
             
-            print(f"Task added successfully. (ID: {task_id}")
+            print(f"Task added successfully. (ID: {task_id})")
     
     elif command == 'list':
         tasks = load_tasks()
@@ -105,19 +116,19 @@ else:
                
     elif command == 'update':
         if len(sys.argv) < 4:
-            print("Please provide task ID and new description.")
-
+            print("Please enter task ID and new description:")
+            
         else:
             try:
                 task_id = int(sys.argv[2])
-
+                
             except ValueError:
-                print("Task ID must be a number.")
-
+                print("Task ID must b a number!")
+            
             else:
                 new_description = sys.argv[3]
                 if not new_description.strip():
-                    print("task description cannot be empty.")
+                    print("Task description can not be empty!")
                 
                 else:
                     tasks = load_tasks()
@@ -127,88 +138,62 @@ else:
                         task['description'] = new_description
                         task['Updated At'] = get_current_time()
                         save_tasks(tasks)
-                        print(f"Task {task_id} updated successfully.")
-
+                        print(f"Task {task_id} updated successfully")
+                        
                     else:
                         print("Task not found.")
+
     
     elif command == 'delete':
-        if len(sys.argv) < 3:
-            print("Please provide a task ID:")
-        
-        else:
-            try:
-                task_id = int(sys.argv[2])
+        task_id = get_task_id()
+        if task_id is not None:
+            tasks = load_tasks()    
+            updated_tasks = []
+            task_found = False
             
-            except ValueError:
-                print("Task ID must be a number.")
-                
-            else:
-                tasks = load_tasks()    
-                updated_tasks = []
-                task_found = False
-                
-                for task in tasks:
-                    if task["id"] == task_id:
-                        task_found = True
-                    
-                    else:
-                        updated_tasks.append(task)
-                
-                if task_found:
-                    save_tasks(updated_tasks)
-                    print(f"Task {task_id} deleted successfully.")
+            for task in tasks:
+                if task["id"] == task_id:
+                    task_found = True
                 
                 else:
-                    print("Task not found.")
+                    updated_tasks.append(task)
+            
+            if task_found:
+                save_tasks(updated_tasks)
+                print(f"Task {task_id} deleted successfully.")
+            
+            else:
+                print("Task not found.")
     
     elif command == 'mark-in-progress':
-        if len(sys.argv) < 3:
-            print("Please provide a task ID:")
-        
-        else:
-            try:
-                task_id = int(sys.argv[2])
-                
-            except ValueError:
-                print("Task ID must be a number.")
-                
+        task_id = get_task_id()
+        if task_id is not None:
+            tasks = load_tasks()
+            task = find_task_by_id(tasks, task_id)
+            
+            if task:
+                task['status'] = "in-progress"
+                task['Updated At'] = get_current_time()
+                save_tasks(tasks)
+                print(f"Task {task_id} marked as in progress.")
+                    
             else:
-                tasks = load_tasks()
-                task = find_task_by_id(tasks, task_id)
-                
-                if task:
-                    task['status'] = "in-progress"
-                    task['Updated At'] = get_current_time()
-                    save_tasks(tasks)
-                    print(f"Task {task_id} marked as in progress.")
-                        
-                else:
-                    print("task not found.")
+                print("task not found.")
     
     elif command == 'mark-done':
-        if len(sys.argv) < 3:
-            print("Please provide a task ID:")
-        
-        else:
-            try:
-                task_id = int(sys.argv[2])
-                
-            except ValueError:
-                print("Task ID must be a number.")
-                
+        task_id = get_task_id()
+        if task_id is not None:
+            tasks = load_tasks()
+            task = find_task_by_id(tasks, task_id)
+            
+            if task:
+                task['status'] = "done"
+                task['Updated At'] = get_current_time()
+                save_tasks(tasks)
+                print(f"Task {task_id} marked as done.")
+                    
             else:
-                tasks = load_tasks()
-                task = find_task_by_id(tasks, task_id)
-                
-                if task:
-                    task['status'] = "done"
-                    task['Updated At'] = get_current_time()
-                    save_tasks(tasks)
-                    print(f"Task {task_id} marked as done.")
-                        
-                else:
-                    print("task not found.")
+                print("task not found.")
     
     else:
         print("Unknown command.")
