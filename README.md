@@ -13,6 +13,9 @@ This project allows users to add, update, delete, and manage tasks directly from
 - Persistent JSON storage
 - Command-line interface
 
+## Project URL
+https://github.com/Saint-dev-svg/task-tracker-cli.git
+
 ## Technologies Used
 - Python
 - JSON
