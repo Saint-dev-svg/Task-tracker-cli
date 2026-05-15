@@ -14,7 +14,7 @@ This project allows users to add, update, delete, and manage tasks directly from
 - Command-line interface
 
 ## Project URL
-https://github.com/Saint-dev-svg/task-tracker-cli.git
+https://github.com/Saint-dev-svg/Task-tracker-cli
 
 ## Technologies Used
 - Python
